@@ -54,14 +54,23 @@
         return generateButton;
     };
 
+    var clickListener = null;
     var attachEventListeners = function () {
         var button = getGenerateButtonElement.call(this);
-        button.addEventListener('click', generateButtonClicked);
+        var pluginInstance = this;
+        var clickListener = function () {
+            generateButtonClicked.call(pluginInstance);
+        };
+        button.addEventListener('click', clickListener);
     };
 
     var detachEventListeners = function () {
+        if (clickListener === null) {
+            return;
+        }
         var button = getGenerateButtonElement.call(this);
-        button.removeEventListener('click', generateButtonClicked);
+        button.removeEventListener('click', clickListener);
+        clickListener = null;
     };
 
     var generatePassword = function () {
