@@ -15,6 +15,8 @@
     var defaults = {
         passwordListSelector: null,
         generateButtonSelector: null,
+        count: 10,
+        lengthInCharacters: 20,
     };
 
     /**
@@ -37,14 +39,6 @@
         return extended;
     };
 
-    /**
-     * Helper Functions
-     @private
-     */
-    var privateFunction = function () {
-        // Helper function, not directly acessible by instance object
-    };
-
     var attachEventListeners = function () {
         // Helper function, not directly acessible by instance object
     };
@@ -53,11 +47,43 @@
         // Helper function, not directly acessible by instance object
     };
 
+    var generatePassword = function () {
+        // STUB
+        return 'ABCDEFG';
+    };
+
+    var createListItem = function (text) {
+        var listItem = document.createElement('div');
+        listItem.textContent = text;
+        return listItem;
+    };
+
+    var getElementBySelector = function (selector) {
+        var element = document.querySelector(selector);
+        if (element === null) {
+            throw new Error('Не найден элемент по селектору ' + selector);
+        }
+        return element;
+    };
+
+    var clearContent = function (element) {
+        element.innerHtml = '';
+    };
+
     var fillPasswordList = function () {
-        if (this.options.passwordListSelector === null) {
+        var passwordListSelector = this.options.passwordListSelector;
+        if (passwordListSelector === null) {
+            console.error('Не задан параметр "passwordListSelector" - контейнер списка паролей');
             return;
         }
-        console.log(this.options);
+        var passwordList = getElementBySelector(passwordListSelector);
+        clearContent(passwordList);
+        var count = this.options.count;
+        for (var i = 0; i < count; i++) {
+            var password = generatePassword();
+            var listItem = createListItem(password);
+            passwordList.appendChild(listItem);
+        }
     };
 
     /**
@@ -87,17 +113,14 @@
             //     selector.classList.add(this.options.classToAdd)
             //     // do something
             // }
-        }, // #! init
+        },
         destroy: function () {
             // Remove any event listeners and undo any "init" actions here...
             detachEventListeners.call(this);
         },
-        // doSomething: function (someData) {
-        //     console.log(someData)
-        // }, // #! doSomething
         generate: function () {
             fillPasswordList.call(this);
-        } // #! doSomething
+        },
     };
     return Plugin;
 }));
@@ -108,11 +131,11 @@
  **************/
 
 //// create new Plugin instance
-// var pluginInstance = new PluginNameHere({
+// var pluginInstance = new PasswordGenerator({
 //     selector: ".box",
 //     someDefaultOption: 'foo2',
 //     classToAdd: "custom-new-class-name",
 // })
 
 //// access public plugin methods
-// pluginInstance.doSomething("Doing Something Else")
+// pluginInstance.generate();
