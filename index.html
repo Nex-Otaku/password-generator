@@ -7,7 +7,14 @@
 <body>
 <p>Ваши пароли:</p>
 <div class="password-list"></div>
-<button class="">Сгенерировать пароли</button>
+<button class="generate-password-button">Сгенерировать пароли</button>
 <script src="js/password-generator.js"></script>
+<script type="text/javascript">
+    var passwordGenerator = new PasswordGenerator({
+        passwordListSelector: '.password-list',
+        generateButtonSelector: '.generate-password-button'
+    });
+    passwordGenerator.generate();
+</script>
 </body>
 </html>

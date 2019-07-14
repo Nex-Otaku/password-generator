@@ -13,20 +13,20 @@
     'use strict';
 
     var defaults = {
-        selector: '.yourSelector',
-        someDefaultOption: 'foo',
-        classToAdd: "new-class-name"
+        passwordListSelector: null,
+        generateButtonSelector: null,
     };
+
     /**
      * Merge defaults with user options
-     * @param {Object} defaults Default settings
+     * @param {Object} target Default settings
      * @param {Object} options User options
      */
     var extend = function (target, options) {
         var prop, extended = {};
-        for (prop in defaults) {
-            if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
-                extended[prop] = defaults[prop];
+        for (prop in target) {
+            if (Object.prototype.hasOwnProperty.call(target, prop)) {
+                extended[prop] = target[prop];
             }
         }
         for (prop in options) {
@@ -43,6 +43,21 @@
      */
     var privateFunction = function () {
         // Helper function, not directly acessible by instance object
+    };
+
+    var attachEventListeners = function () {
+        // Helper function, not directly acessible by instance object
+    };
+
+    var detachEventListeners = function () {
+        // Helper function, not directly acessible by instance object
+    };
+
+    var fillPasswordList = function () {
+        if (this.options.passwordListSelector === null) {
+            return;
+        }
+        console.log(options);
     };
 
     /**
@@ -62,6 +77,7 @@
      */
     Plugin.prototype = {
         init: function () {
+            attachEventListeners();
             // find all matching DOM elements.
             // makes `.selectors` object available to instance.
             this.selectors = document.querySelectorAll(this.options.selector)
@@ -74,9 +90,13 @@
         }, // #! init
         destroy: function () {
             // Remove any event listeners and undo any "init" actions here...
+            detachEventListeners();
         },
-        doSomething: function (someData) {
-            console.log(someData)
+        // doSomething: function (someData) {
+        //     console.log(someData)
+        // }, // #! doSomething
+        generate: function () {
+            fillPasswordList();
         } // #! doSomething
     };
     return Plugin;
