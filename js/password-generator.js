@@ -39,12 +39,27 @@
         return extended;
     };
 
+    var generateButtonClicked = function () {
+        console.log('clicked!');
+    };
+
+    var getGenerateButtonElement = function () {
+        var generateButtonSelector = this.options.generateButtonSelector;
+        if (generateButtonSelector === null) {
+            throw new Error('Не задан параметр "generateButtonSelector" - кнопка для обновления списка паролей');
+        }
+        var generateButton = getElementBySelector.call(this, generateButtonSelector);
+        return generateButton;
+    };
+
     var attachEventListeners = function () {
-        // Helper function, not directly acessible by instance object
+        var button = getGenerateButtonElement.call(this);
+        button.addEventListener('click', generateButtonClicked);
     };
 
     var detachEventListeners = function () {
-        // Helper function, not directly acessible by instance object
+        var button = getGenerateButtonElement.call(this);
+        button.removeEventListener('click', generateButtonClicked);
     };
 
     var generatePassword = function () {
@@ -69,19 +84,23 @@
     var clearContent = function (element) {
         element.innerHtml = '';
     };
-
-    var fillPasswordList = function () {
+    
+    var getPasswordListElement = function () {
         var passwordListSelector = this.options.passwordListSelector;
         if (passwordListSelector === null) {
-            console.error('Не задан параметр "passwordListSelector" - контейнер списка паролей');
-            return;
+            throw new Error('Не задан параметр "passwordListSelector" - контейнер списка паролей');
         }
-        var passwordList = getElementBySelector(passwordListSelector);
-        clearContent(passwordList);
+        var passwordList = getElementBySelector.call(this, passwordListSelector);
+        return passwordList;
+    };
+
+    var fillPasswordList = function () {
+        var passwordList = getPasswordListElement.call(this);
+        clearContent.call(this, passwordList);
         var count = this.options.count;
         for (var i = 0; i < count; i++) {
-            var password = generatePassword();
-            var listItem = createListItem(password);
+            var password = generatePassword.call(this);
+            var listItem = createListItem.call(this, password);
             passwordList.appendChild(listItem);
         }
     };
