@@ -42,7 +42,7 @@
     };
 
     var generateButtonClicked = function () {
-        console.log('clicked!');
+        fillPasswordList.call(this);
     };
 
     var getGenerateButtonElement = function () {
@@ -100,7 +100,9 @@
     };
 
     var clearContent = function (element) {
-        element.innerHtml = '';
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
     };
     
     var getPasswordListElement = function () {
