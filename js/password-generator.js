@@ -17,6 +17,8 @@
         generateButtonSelector: null,
         count: 10,
         lengthInCharacters: 20,
+        listTag: 'ol',
+        itemTag: 'li',
     };
 
     /**
@@ -68,9 +70,16 @@
     };
 
     var createListItem = function (text) {
-        var listItem = document.createElement('div');
+        var itemTag = this.options.itemTag;
+        var listItem = document.createElement(itemTag);
         listItem.textContent = text;
         return listItem;
+    };
+
+    var createList = function () {
+        var listTag = this.options.listTag;
+        var list = document.createElement(listTag);
+        return list;
     };
 
     var getElementBySelector = function (selector) {
@@ -95,13 +104,15 @@
     };
 
     var fillPasswordList = function () {
-        var passwordList = getPasswordListElement.call(this);
-        clearContent.call(this, passwordList);
+        var passwordListContainer = getPasswordListElement.call(this);
+        clearContent.call(this, passwordListContainer);
+        var passwordListElement = createList.call(this);
+        passwordListContainer.appendChild(passwordListElement);
         var count = this.options.count;
         for (var i = 0; i < count; i++) {
             var password = generatePassword.call(this);
             var listItem = createListItem.call(this, password);
-            passwordList.appendChild(listItem);
+            passwordListElement.appendChild(listItem);
         }
     };
 
