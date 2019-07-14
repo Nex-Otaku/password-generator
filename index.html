@@ -5,11 +5,14 @@
     <title>Генератор паролей</title>
     <link href="favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="/css/milligram.min.css">
+    <link rel="stylesheet" href="/css/password-generator.css">
 </head>
 <body>
-<h3>Ваши пароли:</h3>
-<div class="password-list"></div>
-<button class="generate-password-button">Сгенерировать пароли</button>
+<section class="container page">
+    <h3>Ваши пароли:</h3>
+    <div class="password-list"></div>
+    <button class="generate-password-button button button-outline button-black">Сгенерировать пароли</button>
+</section>
 <script src="js/password-generator.js"></script>
 <script type="text/javascript">
     var passwordGenerator = new PasswordGenerator({
