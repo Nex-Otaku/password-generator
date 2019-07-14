@@ -19,6 +19,7 @@
         lengthInCharacters: 20,
         listTag: 'ol',
         itemTag: 'li',
+        characterList: '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
     };
 
     /**
@@ -74,8 +75,16 @@
     };
 
     var generatePassword = function () {
-        // STUB
-        return 'ABCDEFG';
+        var lengthInCharacters = this.options.lengthInCharacters;
+        var characterList = this.options.characterList;
+        var characterListLength = characterList.length;
+        var password = '';
+        for (var i = 0; i < lengthInCharacters; i++) {
+            var position = Math.floor(Math.random() * characterListLength);
+            var character = characterList[position];
+            password += character;
+        }
+        return password;
     };
 
     var createListItem = function (text) {
