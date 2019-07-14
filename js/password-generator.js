@@ -123,18 +123,8 @@
     Plugin.prototype = {
         init: function () {
             attachEventListeners.call(this);
-            // // find all matching DOM elements.
-            // // makes `.selectors` object available to instance.
-            // this.selectors = document.querySelectorAll(this.options.selector)
-            // for (var i = 0; i < this.selectors.length; i++) {
-            //     var selector = this.selectors[i]
-            //     // Do something w/ each matched selector node.
-            //     selector.classList.add(this.options.classToAdd)
-            //     // do something
-            // }
         },
         destroy: function () {
-            // Remove any event listeners and undo any "init" actions here...
             detachEventListeners.call(this);
         },
         generate: function () {
@@ -151,9 +141,8 @@
 
 //// create new Plugin instance
 // var pluginInstance = new PasswordGenerator({
-//     selector: ".box",
-//     someDefaultOption: 'foo2',
-//     classToAdd: "custom-new-class-name",
+//     passwordListSelector: '.password-list',
+//     generateButtonSelector: '.generate-password-button'
 // })
 
 //// access public plugin methods
