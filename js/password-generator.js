@@ -114,7 +114,7 @@
         }
     };
     
-    var getPasswordListElement = function () {
+    var getPasswordListContainer = function () {
         var passwordListSelector = this.options.passwordListSelector;
         if (passwordListSelector === null) {
             throw new Error('Не задан параметр "passwordListSelector" - контейнер списка паролей');
@@ -124,15 +124,15 @@
     };
 
     var fillPasswordList = function () {
-        var passwordListContainer = getPasswordListElement.call(this);
+        var passwordListContainer = getPasswordListContainer.call(this);
         clearContent.call(this, passwordListContainer);
-        var passwordListElement = createList.call(this);
-        passwordListContainer.appendChild(passwordListElement);
+        var passwordList = createList.call(this);
+        passwordListContainer.appendChild(passwordList);
         var count = this.options.count;
         for (var i = 0; i < count; i++) {
             var password = generatePassword.call(this);
             var listItem = createListItem.call(this, password);
-            passwordListElement.appendChild(listItem);
+            passwordList.appendChild(listItem);
         }
     };
 
