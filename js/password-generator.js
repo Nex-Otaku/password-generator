@@ -55,7 +55,36 @@
         return generateButton;
     };
 
-    var clickListener = null;
+    var generateButtonClickListener = null;
+
+    var passwordClickListener = function (e) {
+        var text = '';
+        alert('clicked link! text: ' + text);
+    };
+
+    var detachEventListeners = function () {
+        var pluginInstance = this;
+        if (generateButtonClickListener !== null) {
+            var button = getGenerateButtonElement.call(pluginInstance);
+            button.removeEventListener('click', generateButtonClickListener);
+            generateButtonClickListener = null;
+        }
+
+        detachGlobal('click', passwordClickListener);
+    };
+
+    var attachGlobalBySelector = function (eventName, selector, handler) {
+        document.addEventListener(eventName, function(e) {
+            // loop parent nodes from the target to the delegation node
+            for (var target = e.target; target && target !== this; target = target.parentNode) {
+                if (target.matches(selector)) {
+                    handler.call(target, e);
+                    break;
+                }
+            }
+        }, false);
+    };
+
     var attachEventListeners = function () {
         var button = getGenerateButtonElement.call(this);
         var pluginInstance = this;
@@ -63,15 +92,12 @@
             generateButtonClicked.call(pluginInstance);
         };
         button.addEventListener('click', clickListener);
+
+        attachGlobalBySelector('click', '.link', passwordClickListener);
     };
 
-    var detachEventListeners = function () {
-        if (clickListener === null) {
-            return;
-        }
-        var button = getGenerateButtonElement.call(this);
-        button.removeEventListener('click', clickListener);
-        clickListener = null;
+    var detachGlobal = function (eventName, handler) {
+        document.removeEventListener(eventName, handler);
     };
 
     var generatePassword = function () {
@@ -90,7 +116,12 @@
     var createListItem = function (text) {
         var itemTag = this.options.itemTag;
         var listItem = document.createElement(itemTag);
-        listItem.textContent = text;
+
+        var link = document.createElement('a');
+        link.textContent = text;
+        link.classList.add('link');
+
+        listItem.appendChild(link);
         return listItem;
     };
 
@@ -160,6 +191,8 @@
         },
         generate: function () {
             fillPasswordList.call(this);
+            detachEventListeners.call(this);
+            attachEventListeners.call(this);
         },
     };
     return Plugin;
