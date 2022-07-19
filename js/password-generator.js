@@ -19,7 +19,7 @@
         lengthInCharacters: 20,
         listTag: 'ol',
         itemTag: 'li',
-        characterList: '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+        characterList: '346789ABCDEFGHJKLMNPQRTUVWXYabcdefghijkmnpqrstuvwxyz',
     };
 
     /**
